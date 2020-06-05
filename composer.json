@@ -1,0 +1,30 @@
+{
+  "name": "strehle-de/camunda-client",
+  "description": "PHP client for the Camunda BPMN workflow engine https://camunda.com/products/bpmn-engine/",
+  "homepage": "https://github.com/tistre/camunda_php_client",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tim Strehle",
+      "homepage": "https://github.com/tistre",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^7.4.0",
+    "endpot/camunda-rest-client": "^1.1.5",
+    "psr/log": "^1.1"
+  },
+  "config": {
+    "preferred-install": {
+      "*": "dist"
+    },
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "StrehleDe\\CamundaClient\\": "src/"
+    }
+  }
+}
