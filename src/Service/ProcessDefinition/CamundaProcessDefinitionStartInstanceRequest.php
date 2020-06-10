@@ -2,9 +2,7 @@
 
 namespace StrehleDe\CamundaClient\Service\ProcessDefinition;
 
-use Camunda\Entity\Request\ProcessDefinitionRequest;
 use StrehleDe\CamundaClient\CamundaClient;
-use StrehleDe\CamundaClient\CamundaConfig;
 use StrehleDe\CamundaClient\CamundaRequest;
 use StrehleDe\CamundaClient\CamundaRestRequest;
 use StrehleDe\CamundaClient\Exception\CamundaInvalidInputException;

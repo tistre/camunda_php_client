@@ -2,7 +2,6 @@
 
 namespace StrehleDe\CamundaClient\Service\ExternalTask;
 
-use Camunda\Service\ExternalTaskService;
 use StrehleDe\CamundaClient\CamundaClient;
 use StrehleDe\CamundaClient\CamundaEmptyResponse;
 use StrehleDe\CamundaClient\Service\CamundaService;
@@ -10,21 +9,6 @@ use StrehleDe\CamundaClient\Service\CamundaService;
 
 class CamundaExternalTaskService extends CamundaService
 {
-    protected ExternalTaskService $restService;
-
-
-    /**
-     * CamundaExternalTaskService constructor.
-     * @param CamundaClient $camundaClient
-     */
-    public function __construct(CamundaClient $camundaClient)
-    {
-        parent::__construct($camundaClient);
-
-        $this->restService = new ExternalTaskService($this->getConfig()->getUrl());
-    }
-
-
     /**
      * @see https://docs.camunda.org/manual/latest/reference/rest/external-task/fetch/
      * @param CamundaExternalTaskFetchAndLockRequest $request
