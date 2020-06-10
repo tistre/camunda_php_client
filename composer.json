@@ -13,7 +13,8 @@
   ],
   "require": {
     "php": "^7.4.0",
-    "endpot/camunda-rest-client": "^1.1.5",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^6.3",
     "psr/log": "^1.1"
   },
   "config": {
