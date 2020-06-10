@@ -2,7 +2,6 @@
 
 namespace StrehleDe\CamundaClient\Service\ProcessDefinition;
 
-use StrehleDe\CamundaClient\CamundaClient;
 use StrehleDe\CamundaClient\Service\CamundaService;
 
 

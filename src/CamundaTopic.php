@@ -2,8 +2,8 @@
 
 namespace StrehleDe\CamundaClient;
 
-
 use StrehleDe\CamundaClient\Exception\CamundaInvalidInputException;
+
 
 /**
  * Class CamundaExternalTaskTopic

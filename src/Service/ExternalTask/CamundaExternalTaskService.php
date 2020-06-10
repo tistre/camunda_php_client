@@ -2,7 +2,6 @@
 
 namespace StrehleDe\CamundaClient\Service\ExternalTask;
 
-use StrehleDe\CamundaClient\CamundaClient;
 use StrehleDe\CamundaClient\CamundaEmptyResponse;
 use StrehleDe\CamundaClient\Service\CamundaService;
 

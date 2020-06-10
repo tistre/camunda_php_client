@@ -3,10 +3,6 @@
 namespace StrehleDe\CamundaClient;
 
 use ReflectionProperty;
-use \RuntimeException;
-use StrehleDe\CamundaClient\Exception\CamundaRequestException;
-use StrehleDe\CamundaClient\Variable\CamundaVariable;
-use StrehleDe\CamundaClient\Variable\CamundaVariableBag;
 
 
 /**

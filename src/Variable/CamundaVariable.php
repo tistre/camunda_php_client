@@ -2,9 +2,8 @@
 
 namespace StrehleDe\CamundaClient\Variable;
 
-
-use StrehleDe\CamundaClient\CamundaResponse;
 use StrehleDe\CamundaClient\CamundaUtils;
+
 
 /**
  * Class CamundaVariable

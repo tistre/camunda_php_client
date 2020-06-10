@@ -3,11 +3,8 @@
 namespace StrehleDe\CamundaClient\Service\ProcessDefinition;
 
 use Psr\Http\Message\ResponseInterface;
-use StrehleDe\CamundaClient\CamundaExternalTask;
 use StrehleDe\CamundaClient\CamundaResponse;
 use StrehleDe\CamundaClient\CamundaRestRequest;
-use StrehleDe\CamundaClient\Exception\CamundaRequestException;
-use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskFetchAndLockResponse;
 use StrehleDe\CamundaClient\Variable\CamundaVariableBag;
 
 
