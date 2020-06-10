@@ -15,7 +15,7 @@ Here’s how to do a quick test, starting from scratch with a new project (Docke
 $ docker run --rm --interactive --tty \
   --volume $PWD:/app \
   --volume ${COMPOSER_HOME:-$HOME/.composer}:/tmp \
-  composer require tistre/camunda-client monolog/monolog
+  composer require strehle-de/camunda-client monolog/monolog
 ```
 
 ### Copy and edit the example script
@@ -27,7 +27,7 @@ Edit your copy.
 ### Then run your copy
 
 ```
-$ docker run -it --rm --name ww-elvis-client-example \
+$ docker run -it --rm \
   --volume "$PWD":/usr/src/myapp --workdir /usr/src/myapp \
   php:7.4-cli php MyExample.php
 ```
