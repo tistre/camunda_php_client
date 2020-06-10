@@ -37,7 +37,7 @@ $request = (new CamundaProcessDefinitionStartInstanceRequest($camundaClient))
     ->setKey('ProcessDefinitionKey')
     ->setVariables($variables);
 
-(new CamundaProcessDefinitionService($camundaClient))->startInstance($request);
+var_dump((new CamundaProcessDefinitionService($camundaClient))->startInstance($request));
 
 // Fetch external task
 
@@ -55,6 +55,8 @@ $externalTaskService = new CamundaExternalTaskService($camundaClient);
 
 $externalTask = $externalTaskService->fetchAndLock($request)->getExternalTasks()[0];
 
+var_dump($externalTask);
+
 // Complete external task
 
 $variables = new CamundaVariableBag();
@@ -65,7 +67,7 @@ $request = (new CamundaExternalTaskCompleteRequest($camundaClient))
     ->setWorkerId($externalTask->getWorkerId())
     ->setVariables($variables);
 
-$externalTaskService->complete($request);
+var_dump($externalTaskService->complete($request));
 
 // ... or mark external task as failed
 
@@ -75,4 +77,4 @@ $request = (new CamundaExternalTaskHandleFailureRequest($camundaClient))
     ->setErrorMessage('ERROR_MESSAGE')
     ->setErrorDetails('Here goes error details');
 
-$externalTaskService->handleFailure($request);
+var_dump($externalTaskService->handleFailure($request));
