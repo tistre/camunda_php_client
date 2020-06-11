@@ -54,4 +54,19 @@ class CamundaTopicBag extends ArrayIterator
 
         return null;
     }
+
+
+    /**
+     * @return string[]
+     */
+    public function getTopicNames(): array
+    {
+        $topicNames = [];
+
+        foreach ($this as $topic) {
+            $topicNames[] = $topic->getTopicName();
+        }
+
+        return $topicNames;
+    }
 }
