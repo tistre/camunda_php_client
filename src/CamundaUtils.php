@@ -3,6 +3,8 @@
 namespace StrehleDe\CamundaClient;
 
 use ReflectionProperty;
+use StrehleDe\CamundaClient\Exception\CamundaInvalidInputException;
+use StrehleDe\CamundaClient\Variable\CamundaVariableBag;
 
 
 /**
@@ -50,5 +52,40 @@ class CamundaUtils
         }
 
         return $values;
+    }
+
+
+    /**
+     * @param CamundaVariableBag $variables
+     * @param array $required
+     * @param string $addMessage
+     */
+    public static function assertRequiredVariables(CamundaVariableBag $variables, array $required, string $addMessage = ''): void
+    {
+        foreach ($required as $variableName) {
+            $variable = $variables[$variableName] ?? null;
+
+            if ($variable === null) {
+                throw new CamundaInvalidInputException(
+                    sprintf(
+                        '%s: Required input variable "%s" is not set%s',
+                        __METHOD__,
+                        $variableName,
+                        ($addMessage === '' ? '' : ' - ' . $addMessage)
+                    )
+                );
+            }
+
+            if (strlen($variable->getValue()) === '') {
+                throw new CamundaInvalidInputException(
+                    sprintf(
+                        '%s: Required input variable "%s" is set to an empty value%s',
+                        __METHOD__,
+                        $variableName,
+                        ($addMessage === '' ? '' : ' - ' . $addMessage)
+                    )
+                );
+            }
+        }
     }
 }
