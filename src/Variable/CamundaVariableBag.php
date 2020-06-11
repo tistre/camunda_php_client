@@ -55,4 +55,18 @@ class CamundaVariableBag extends ArrayIterator
             $this[$variableName] = (new CamundaVariable())->fromJson($value);
         }
     }
+
+
+    /**
+     * @param string $variableName
+     * @return mixed|null
+     */
+    public function getValue(string $variableName)
+    {
+        if (!isset($this[$variableName])) {
+            return null;
+        }
+
+        return $this[$variableName]->getValue();
+    }
 }
