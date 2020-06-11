@@ -50,7 +50,7 @@ class CamundaExternalTaskCompleteRequest extends CamundaRequest
             'workerId' => $this->getWorkerId()
         ];
 
-        if (!empty($this->getVariables())) {
+        if (count($this->getVariables()) > 0) {
             $json['variables'] = $this->getVariables()->toJson();
         }
 
