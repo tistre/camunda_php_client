@@ -65,7 +65,7 @@ class CamundaProcessDefinitionStartInstanceRequest extends CamundaRequest
             'withVariablesInReturn' => $this->isWithVariablesInReturn()
             ];
 
-        if (!empty($this->getVariables())) {
+        if (count($this->getVariables()) > 0) {
             $json['variables'] = $this->getVariables()->toJson();
         }
 
