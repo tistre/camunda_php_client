@@ -11,7 +11,11 @@ use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskService;
 use StrehleDe\CamundaClient\Variable\CamundaVariableBag;
 
 
-class CamundaExternalTaskRunner
+/**
+ * Class CamundaExternalTaskWorker
+ * @package StrehleDe\CamundaClient
+ */
+class CamundaExternalTaskWorker
 {
     protected CamundaClient $camundaClient;
     protected CamundaExternalTaskHandler $externalTaskHandler;
@@ -21,7 +25,7 @@ class CamundaExternalTaskRunner
 
 
     /**
-     * CamundaExternalTaskRunner constructor.
+     * CamundaExternalTaskWorker constructor.
      * @param CamundaClient $camundaClient
      * @param LoggerInterface $logger
      * @param CamundaExternalTaskHandler $externalTaskHandler
@@ -61,11 +65,11 @@ class CamundaExternalTaskRunner
     /**
      * @param CamundaExternalTask $externalTask
      */
-    protected function handleExternalTask(CamundaExternalTask $externalTask): void
+    public function handleExternalTask(CamundaExternalTask $externalTask): void
     {
         try {
             $updateVariables = new CamundaVariableBag();
-            $this->externalTaskHandler->handleTask($externalTask, $updateVariables);
+            $this->externalTaskHandler->handle($externalTask, $updateVariables);
         } catch (Exception $e) {
             $request = (new CamundaExternalTaskHandleFailureRequest($this->camundaClient))
                 ->setId($externalTask->getId())

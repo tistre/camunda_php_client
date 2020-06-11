@@ -7,9 +7,13 @@ use StrehleDe\CamundaClient\Exception\CamundaInvalidInputException;
 use StrehleDe\CamundaClient\Variable\CamundaVariableBag;
 
 
+/**
+ * Class CamundaExternalTaskHandler
+ * @package StrehleDe\CamundaClient
+ */
 abstract class CamundaExternalTaskHandler
 {
-    const METHOD_PREFIX_HANDLE_TASK = 'handleTask_';
+    const METHOD_PREFIX_HANDLE_TOPIC = 'handle_';
 
     protected LoggerInterface $logger;
 
@@ -31,32 +35,27 @@ abstract class CamundaExternalTaskHandler
 
 
     /**
-     * @return string[]
-     */
-    public function getHandledTopicNames(): array
-    {
-        $topicNames = [];
-
-        foreach ($this->getHandledTopics() as $topic) {
-            $topicNames[] = $topic->getTopicName();
-        }
-
-        return $topicNames;
-    }
-
-
-    /**
      * @param CamundaExternalTask $externalTask
      * @param CamundaVariableBag $updateVariables
      */
-    public function handleTask(CamundaExternalTask $externalTask, CamundaVariableBag $updateVariables): void
+    public function handle(CamundaExternalTask $externalTask, CamundaVariableBag $updateVariables): void
     {
-        $methodName = self::METHOD_PREFIX_HANDLE_TASK . $externalTask->getTopicName();
+        $methodName = $this->topicNameToMethodName($externalTask->getTopicName());
 
         if (!method_exists($this, $methodName)) {
             throw new CamundaInvalidInputException(sprintf('%s: Method <%s> does not exist', __METHOD__, $methodName));
         }
 
         $this->$methodName($externalTask, $updateVariables);
+    }
+
+
+    /**
+     * @param string $topicName
+     * @return string
+     */
+    protected function topicNameToMethodName(string $topicName): string
+    {
+        return self::METHOD_PREFIX_HANDLE_TOPIC . strtr($topicName, ['-' => '_']);
     }
 }
