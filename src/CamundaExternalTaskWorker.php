@@ -4,6 +4,7 @@ namespace StrehleDe\CamundaClient;
 
 use \Exception;
 use Psr\Log\LoggerInterface;
+use StrehleDe\CamundaClient\Exception\CamundaInvalidInputException;
 use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskCompleteRequest;
 use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskFetchAndLockRequest;
 use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskHandleFailureRequest;
@@ -46,17 +47,36 @@ class CamundaExternalTaskWorker
 
 
     /**
-     * @param int $maxTasks
+     * @param int $maxTasks How many external tasks to fetch
+     * @param string[] $filterTopics Only fetch tasks with the given topics (empty array = all supported topics)
      * @return CamundaExternalTaskBag
      */
-    public function fetchExternalTasks(int $maxTasks = 1): CamundaExternalTaskBag
+    public function fetchExternalTasks(int $maxTasks = 1, array $filterTopics = []): CamundaExternalTaskBag
     {
-        // Fetch one external task of the given topic name
+        $supportedTopics = $this->externalTaskHandler->getHandledTopics();
+        $topics = new CamundaTopicBag();
+
+        if (count($filterTopics) > 0) {
+            foreach ($filterTopics as $topicName) {
+                $topic = $supportedTopics->getByTopicName($topicName);
+
+                if ($topic === null) {
+                    throw new CamundaInvalidInputException(sprintf(
+                        '%s: Topic <%s> not supported by <%s>',
+                        __METHOD__,
+                        $topicName,
+                        get_class($this->externalTaskHandler)
+                    ));
+                }
+
+                $topics[] = $topic;
+            }
+        }
 
         $request = (new CamundaExternalTaskFetchAndLockRequest($this->camundaClient))
             ->setWorkerId($this->workerId)
             ->setMaxTasks($maxTasks)
-            ->setTopics($this->externalTaskHandler->getHandledTopics());
+            ->setTopics($topics);
 
         return $this->externalTaskService->fetchAndLock($request)->getExternalTasks();
     }
