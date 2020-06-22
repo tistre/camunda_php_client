@@ -4,6 +4,7 @@ namespace StrehleDe\CamundaClient;
 
 use \Exception;
 use Psr\Log\LoggerInterface;
+use StrehleDe\CamundaClient\Exception\CamundaInvalidInputException;
 use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskCompleteRequest;
 use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskFetchAndLockRequest;
 use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskHandleFailureRequest;
@@ -52,13 +53,23 @@ class CamundaExternalTaskWorker
      */
     public function fetchExternalTasks(int $maxTasks = 1, array $filterTopics = []): CamundaExternalTaskBag
     {
-        $topics = $this->externalTaskHandler->getHandledTopics();
+        $supportedTopics = $this->externalTaskHandler->getHandledTopics();
+        $topics = new CamundaTopicBag();
 
         if (count($filterTopics) > 0) {
-            foreach ($topics as $key => $topic) {
-                if (!in_array($topic->getTopicName(), $filterTopics)) {
-                    unset($topics[$key]);
+            foreach ($filterTopics as $topicName) {
+                $topic = $supportedTopics->getByTopicName($topicName);
+
+                if ($topic === null) {
+                    throw new CamundaInvalidInputException(sprintf(
+                        '%s: Topic <%s> not supported by <%s>',
+                        __METHOD__,
+                        $topicName,
+                        get_class($this->externalTaskHandler)
+                    ));
                 }
+
+                $topics[] = $topic;
             }
         }
 
