@@ -46,17 +46,26 @@ class CamundaExternalTaskWorker
 
 
     /**
-     * @param int $maxTasks
+     * @param int $maxTasks How many external tasks to fetch
+     * @param string[] $filterTopics Only fetch tasks with the given topics (empty array = all supported topics)
      * @return CamundaExternalTaskBag
      */
-    public function fetchExternalTasks(int $maxTasks = 1): CamundaExternalTaskBag
+    public function fetchExternalTasks(int $maxTasks = 1, array $filterTopics = []): CamundaExternalTaskBag
     {
-        // Fetch one external task of the given topic name
+        $topics = $this->externalTaskHandler->getHandledTopics();
+
+        if (count($filterTopics) > 0) {
+            foreach ($topics as $key => $topic) {
+                if (!in_array($topic->getTopicName(), $filterTopics)) {
+                    unset($topics[$key]);
+                }
+            }
+        }
 
         $request = (new CamundaExternalTaskFetchAndLockRequest($this->camundaClient))
             ->setWorkerId($this->workerId)
             ->setMaxTasks($maxTasks)
-            ->setTopics($this->externalTaskHandler->getHandledTopics());
+            ->setTopics($topics);
 
         return $this->externalTaskService->fetchAndLock($request)->getExternalTasks();
     }
