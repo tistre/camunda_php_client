@@ -146,20 +146,4 @@ class CamundaRestRequest
              throw new CamundaRequestException($restResponse->message ?? json_encode($restResponse));
          */
     }
-
-
-    /**
-     * Parse JSON response string into array, throw exception on error response
-     *
-     * @param ResponseInterface $response
-     * @return array
-     */
-    public static function responseToJson(ResponseInterface $response): array
-    {
-        if (!in_array('application/json', $response->getHeader('Content-Type'))) {
-            return [];
-        }
-
-        return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-    }
 }

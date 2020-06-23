@@ -40,7 +40,7 @@ class CamundaProcessDefinitionStartInstanceResponse extends CamundaResponse
      */
     public function fromRestResponse(ResponseInterface $restResponse): self
     {
-        $json = CamundaRestRequest::responseToJson($restResponse);
+        $json = CamundaResponse::restResponseToJson($restResponse);
 
         parent::jsonToProperties($json);
 

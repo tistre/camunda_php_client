@@ -3,6 +3,8 @@
 namespace StrehleDe\CamundaClient;
 
 
+use Psr\Http\Message\ResponseInterface;
+
 abstract class CamundaResponse
 {
     /**
@@ -31,5 +33,21 @@ abstract class CamundaResponse
     protected function getPropertiesToCopyFromJson(): array
     {
         return [];
+    }
+
+
+    /**
+     * Parse JSON response string into array, throw exception on error response
+     *
+     * @param ResponseInterface $response
+     * @return array
+     */
+    public static function restResponseToJson(ResponseInterface $response): array
+    {
+        if (!in_array('application/json', $response->getHeader('Content-Type'))) {
+            return [];
+        }
+
+        return json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
     }
 }
