@@ -4,7 +4,6 @@ namespace StrehleDe\CamundaClient\Service\ProcessDefinition;
 
 use Psr\Http\Message\ResponseInterface;
 use StrehleDe\CamundaClient\CamundaResponse;
-use StrehleDe\CamundaClient\CamundaRestRequest;
 use StrehleDe\CamundaClient\Variable\CamundaVariableBag;
 
 
