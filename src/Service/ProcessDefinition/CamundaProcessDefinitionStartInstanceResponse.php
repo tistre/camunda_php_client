@@ -4,7 +4,6 @@ namespace StrehleDe\CamundaClient\Service\ProcessDefinition;
 
 use Psr\Http\Message\ResponseInterface;
 use StrehleDe\CamundaClient\CamundaResponse;
-use StrehleDe\CamundaClient\CamundaRestRequest;
 use StrehleDe\CamundaClient\Variable\CamundaVariableBag;
 
 
@@ -40,7 +39,7 @@ class CamundaProcessDefinitionStartInstanceResponse extends CamundaResponse
      */
     public function fromRestResponse(ResponseInterface $restResponse): self
     {
-        $json = CamundaRestRequest::responseToJson($restResponse);
+        $json = CamundaResponse::restResponseToJson($restResponse);
 
         parent::jsonToProperties($json);
 

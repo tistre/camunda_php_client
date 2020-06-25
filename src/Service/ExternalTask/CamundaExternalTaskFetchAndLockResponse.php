@@ -6,7 +6,6 @@ use Psr\Http\Message\ResponseInterface;
 use StrehleDe\CamundaClient\CamundaExternalTask;
 use StrehleDe\CamundaClient\CamundaExternalTaskBag;
 use StrehleDe\CamundaClient\CamundaResponse;
-use StrehleDe\CamundaClient\CamundaRestRequest;
 use StrehleDe\CamundaClient\Exception\CamundaRequestException;
 
 
@@ -35,7 +34,7 @@ class CamundaExternalTaskFetchAndLockResponse extends CamundaResponse
      */
     public function fromRestResponse(ResponseInterface $restResponse): self
     {
-        $json = CamundaRestRequest::responseToJson($restResponse);
+        $json = CamundaResponse::restResponseToJson($restResponse);
 
         if (!is_array($json)) {
             throw new CamundaRequestException(sprintf('%s: Response is not an array', __METHOD__));
