@@ -71,6 +71,8 @@ class CamundaExternalTaskWorker
 
                 $topics[] = $topic;
             }
+        } else {
+            $topics = $supportedTopics;
         }
 
         $request = (new CamundaExternalTaskFetchAndLockRequest($this->camundaClient))
