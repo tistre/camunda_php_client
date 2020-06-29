@@ -3,7 +3,11 @@
 namespace StrehleDe\CamundaClient;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Middleware;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 
 /**
@@ -26,7 +30,17 @@ class CamundaClient
         $this->config = $config;
         $this->logger = $logger;
 
-        $this->httpClient = new Client();
+        $stack = HandlerStack::create();
+
+        $stack->push(
+            Middleware::log(
+                $logger,
+                new MessageFormatter('Camunda request: {req_body} Camunda response: {res_body}'),
+                LogLevel::DEBUG
+            )
+        );
+
+        $this->httpClient = new Client(['handler' => $stack]);
     }
 
 
