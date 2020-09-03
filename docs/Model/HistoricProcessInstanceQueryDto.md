@@ -1,0 +1,57 @@
+# # HistoricProcessInstanceQueryDto
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**process_instance_id** | **string** | Filter by process instance id. | [optional] 
+**process_instance_ids** | **string[]** | Filter by process instance ids. Must be a JSON array process instance ids. | [optional] 
+**process_definition_id** | **string** | Filter by the process definition the instances run on. | [optional] 
+**process_definition_key** | **string** | Filter by the key of the process definition the instances run on. | [optional] 
+**process_definition_key_in** | **string[]** | Filter by a list of process definition keys. A process instance must have one of the given process definition keys. Must be a JSON array of Strings. | [optional] 
+**process_definition_name** | **string** | Filter by the name of the process definition the instances run on. | [optional] 
+**process_definition_name_like** | **string** | Filter by process definition names that the parameter is a substring of. | [optional] 
+**process_definition_key_not_in** | **string[]** | Exclude instances that belong to a set of process definitions. Must be a JSON array of process definition keys. | [optional] 
+**process_instance_business_key** | **string** | Filter by process instance business key. | [optional] 
+**process_instance_business_key_like** | **string** | Filter by process instance business key that the parameter is a substring of. | [optional] 
+**root_process_instances** | **bool** | Restrict the query to all process instances that are top level process instances. | [optional] 
+**finished** | **bool** | Only include finished process instances. Value may only be true, as false is the default behavior. | [optional] [default to false]
+**unfinished** | **bool** | Only include unfinished process instances. Value may only be true, as false is the default behavior. | [optional] [default to false]
+**with_incidents** | **bool** | Only include process instances which have an incident. Value may only be true, as false is the default behavior. | [optional] [default to false]
+**with_root_incidents** | **bool** | Only include process instances which have a root incident. Value may only be true, as false is the default behavior. | [optional] [default to false]
+**incident_type** | **string** | Filter by the incident type. See the [User Guide](https://docs.camunda.org/manual/7.13/user-guide/process-engine/incidents/#incident-types) for a list of incident types. | [optional] 
+**incident_status** | **string** | Only include process instances which have an incident in status either open or resolved. To get all process instances, use the query parameter withIncidents. | [optional] 
+**incident_message** | **string** | Filter by the incident message. Exact match. | [optional] 
+**incident_message_like** | **string** | Filter by the incident message that the parameter is a substring of. | [optional] 
+**started_before** | [**\DateTime**](\DateTime.md) | Restrict to instances that were started before the given date. By [default](https://docs.camunda.org/manual/7.13/reference/rest/overview/date-format/), the date must have the format yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSZ, e.g., 2013-01-23T14:42:45.000+0200. | [optional] 
+**started_after** | [**\DateTime**](\DateTime.md) | Restrict to instances that were started after the given date. By [default](https://docs.camunda.org/manual/7.13/reference/rest/overview/date-format/), the date must have the format yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSZ, e.g., 2013-01-23T14:42:45.000+0200. | [optional] 
+**finished_before** | [**\DateTime**](\DateTime.md) | Restrict to instances that were finished before the given date. By [default](https://docs.camunda.org/manual/7.13/reference/rest/overview/date-format/), the date must have the format yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSZ, e.g., 2013-01-23T14:42:45.000+0200. | [optional] 
+**finished_after** | [**\DateTime**](\DateTime.md) | Restrict to instances that were finished after the given date. By [default](https://docs.camunda.org/manual/7.13/reference/rest/overview/date-format/), the date must have the format yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSZ, e.g., 2013-01-23T14:42:45.000+0200. | [optional] 
+**executed_activity_after** | [**\DateTime**](\DateTime.md) | Restrict to instances that executed an activity after the given date (inclusive). By [default](https://docs.camunda.org/manual/7.13/reference/rest/overview/date-format/), the date must have the format yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSZ, e.g., 2013-01-23T14:42:45.000+0200. | [optional] 
+**executed_activity_before** | [**\DateTime**](\DateTime.md) | Restrict to instances that executed an activity before the given date (inclusive). By [default](https://docs.camunda.org/manual/7.13/reference/rest/overview/date-format/), the date must have the format yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSZ, e.g., 2013-01-23T14:42:45.000+0200. | [optional] 
+**executed_job_after** | [**\DateTime**](\DateTime.md) | Restrict to instances that executed an job after the given date (inclusive). By [default](https://docs.camunda.org/manual/7.13/reference/rest/overview/date-format/), the date must have the format yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSZ, e.g., 2013-01-23T14:42:45.000+0200. | [optional] 
+**executed_job_before** | [**\DateTime**](\DateTime.md) | Restrict to instances that executed an job before the given date (inclusive). By [default](https://docs.camunda.org/manual/7.13/reference/rest/overview/date-format/), the date must have the format yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSZ, e.g., 2013-01-23T14:42:45.000+0200. | [optional] 
+**started_by** | **string** | Only include process instances that were started by the given user. | [optional] 
+**super_process_instance_id** | **string** | Restrict query to all process instances that are sub process instances of the given process instance. Takes a process instance id. | [optional] 
+**sub_process_instance_id** | **string** | Restrict query to one process instance that has a sub process instance with the given id. | [optional] 
+**super_case_instance_id** | **string** | Restrict query to all process instances that are sub process instances of the given case instance. Takes a case instance id. | [optional] 
+**sub_case_instance_id** | **string** | Restrict query to one process instance that has a sub case instance with the given id. | [optional] 
+**case_instance_id** | **string** | Restrict query to all process instances that are sub process instances of the given case instance. Takes a case instance id. | [optional] 
+**tenant_id_in** | **string[]** | Filter by a list of tenant ids. A process instance must have one of the given tenant ids. Must be a JSON array of Strings. | [optional] 
+**without_tenant_id** | **bool** | Only include historic process instances which belong to no tenant. Value may only be true, as false is the default behavior. | [optional] 
+**executed_activity_id_in** | **string[]** | Restrict to instances that executed an activity with one of given ids. | [optional] 
+**active_activity_id_in** | **string[]** | Restrict to instances that have an active activity with one of given ids. | [optional] 
+**active** | **bool** | Restrict to instances that are active. | [optional] 
+**suspended** | **bool** | Restrict to instances that are suspended. | [optional] 
+**completed** | **bool** | Restrict to instances that are completed. | [optional] 
+**externally_terminated** | **bool** | Restrict to instances that are externallyTerminated. | [optional] 
+**internally_terminated** | **bool** | Restrict to instances that are internallyTerminated. | [optional] 
+**variables** | [**\StrehleDe\CamundaClient\Model\VariableQueryParameterDto[]**](VariableQueryParameterDto.md) | A JSON array to only include process instances that have/had variables with certain values. The array consists of objects with the three properties &#x60;name&#x60;, &#x60;operator&#x60; and &#x60;value&#x60;. &#x60;name&#x60; (String) is the variable name, &#x60;operator&#x60; (String) is the comparison operator to be used and &#x60;value&#x60; the variable value. &#x60;value&#x60; may be String, Number or Boolean. Valid operator values are: &#x60;eq&#x60; - equal to; &#x60;neq&#x60; - not equal to; &#x60;gt&#x60; - greater than; &#x60;gteq&#x60; - greater than or equal to; &#x60;lt&#x60; - lower than; &#x60;lteq&#x60; - lower than or equal to; &#x60;like&#x60;. | [optional] 
+**variable_names_ignore_case** | **bool** | Match all variable names provided in variables case-insensitively. If set to true variableName and variablename are treated as equal. | [optional] 
+**variable_values_ignore_case** | **bool** | Match all variable values provided in variables case-insensitively. If set to true variableValue and variablevalue are treated as equal. | [optional] 
+**or_queries** | [**\StrehleDe\CamundaClient\Model\HistoricProcessInstanceQueryDto[]**](HistoricProcessInstanceQueryDto.md) | A JSON array of nested historic process instance queries with OR semantics. A process instance matches a nested query if it fulfills at least one of the query&#39;s predicates. With multiple nested queries, a process instance must fulfill at least one predicate of each query (Conjunctive Normal Form). All process instance query properties can be used except for: sorting See the [User Guide](https://docs.camunda.org/manual/7.13/user-guide/process-engine/process-engine-api/#or-queries) for more information about OR queries. | [optional] 
+**sorting** | [**\StrehleDe\CamundaClient\Model\HistoricProcessInstanceQueryDtoSorting[]**](HistoricProcessInstanceQueryDtoSorting.md) | Apply sorting of the result | [optional] 
+
+[[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
+
+
