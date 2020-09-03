@@ -2,23 +2,18 @@
 
 error_reporting(-1);
 
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Middleware;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Logger;
-use StrehleDe\CamundaClient\CamundaClient;
-use StrehleDe\CamundaClient\CamundaConfig;
-use StrehleDe\CamundaClient\CamundaExternalTask;
-use StrehleDe\CamundaClient\CamundaExternalTaskHandler;
-use StrehleDe\CamundaClient\CamundaExternalTaskWorker;
-use StrehleDe\CamundaClient\CamundaTopic;
-use StrehleDe\CamundaClient\CamundaTopicBag;
-use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskFetchAndLockRequest;
-use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskService;
-use StrehleDe\CamundaClient\Service\ProcessDefinition\CamundaProcessDefinitionService;
-use StrehleDe\CamundaClient\Service\ProcessDefinition\CamundaProcessDefinitionStartInstanceRequest;
-use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskCompleteRequest;
-use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskHandleFailureRequest;
-use StrehleDe\CamundaClient\Variable\CamundaVariableBag;
-use StrehleDe\CamundaClient\Variable\CamundaStringVariable;
+use Psr\Log\LogLevel;
+use StrehleDe\CamundaClient\Api\ProcessDefinitionApi;
+use StrehleDe\CamundaClient\Api\ProcessInstanceApi;
+use StrehleDe\CamundaClient\Configuration;
+use StrehleDe\CamundaClient\Model\ProcessInstanceDto;
+use StrehleDe\CamundaClient\Model\StartProcessInstanceDto;
 
 require_once 'vendor/autoload.php';
 
@@ -52,25 +47,40 @@ class ExampleHandler extends CamundaExternalTaskHandler
     }
 }
 
-// Set up CamundaClient instance
 
-$logger = new Logger('camundaClient');
-$logger->pushHandler(new ErrorLogHandler());
+// Create your own Logger and HTTP Client (not required - we do it so we can log REST requests and responses)
 
-$config = new CamundaConfig('http://localhost:8080/engine-rest');
+$logger = (new Logger('camundaClient'))
+    ->pushHandler(new ErrorLogHandler(ErrorLogHandler::OPERATING_SYSTEM, LogLevel::DEBUG));
 
-$camundaClient = new CamundaClient($config, $logger);
+$stack = HandlerStack::create();
+
+$stack->push(
+    Middleware::log(
+        $logger,
+        new MessageFormatter('Camunda request: {request} Camunda response: {response}'),
+        LogLevel::DEBUG
+    )
+);
+
+$httpClient = new Client(['handler' => $stack]);
+
+// Configure the Camunda client
+
+$configuration = (new Configuration())->setHost('http://localhost:8080/engine-rest');
 
 // Start process instance
 
-$variables = new CamundaVariableBag();
-$variables['VariableName'] = new CamundaStringVariable('hello world');
+$processDefinitionApi = new ProcessDefinitionApi($httpClient, $configuration);
 
-$request = (new CamundaProcessDefinitionStartInstanceRequest($camundaClient))
-    ->setKey('ProcessDefinitionKey')
-    ->setVariables($variables);
+$startProcessInstanceDto = (new StartProcessInstanceDto())->setVariables([
+    'VariableName' => [
+        'type' => 'string',
+        'value' => 'hello world'
+    ]
+]);
 
-var_dump((new CamundaProcessDefinitionService($camundaClient))->startInstance($request));
+$processDefinitionApi->startProcessInstanceByKey('ProcessDefinitionKey', $startProcessInstanceDto);
 
 // Fetch external task
 
