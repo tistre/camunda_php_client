@@ -13,6 +13,8 @@ use StrehleDe\CamundaClient\CamundaTopic;
 use StrehleDe\CamundaClient\CamundaTopicBag;
 use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskFetchAndLockRequest;
 use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskService;
+use StrehleDe\CamundaClient\Service\Message\CamundaMessageCorrelateRequest;
+use StrehleDe\CamundaClient\Service\Message\CamundaMessageService;
 use StrehleDe\CamundaClient\Service\ProcessDefinition\CamundaProcessDefinitionService;
 use StrehleDe\CamundaClient\Service\ProcessDefinition\CamundaProcessDefinitionStartInstanceRequest;
 use StrehleDe\CamundaClient\Service\ExternalTask\CamundaExternalTaskCompleteRequest;
@@ -127,3 +129,18 @@ while (true) {
     usleep(100000);
     break; // Remove this for a true endless loop
 }
+
+// Correlate a message
+
+$correlationKeys = new CamundaVariableBag();
+$correlationKeys['corrKey'] = new CamundaStringVariable('one');
+
+$processVariables = new CamundaVariableBag();
+$processVariables['fromMessage'] = new CamundaStringVariable('hello world');
+
+$request = (new CamundaMessageCorrelateRequest($camundaClient))
+    ->setMessageName('someMessage')
+    ->setCorrelationKeys($correlationKeys)
+    ->setProcessVariables($processVariables);
+
+(new CamundaMessageService($camundaClient))->correlate($request);
