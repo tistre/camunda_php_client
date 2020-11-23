@@ -14,6 +14,14 @@ Make sure to also check out the nice [endpot / camunda-rest-client](https://gith
 and the official but dated [Camunda BPM PHP SDK](http://camunda.github.io/camunda-bpm-php-sdk/) (or its forks,
 for example [kmhamdi00 / camunda-bpm-php-sdk](https://github.com/kmhamdi00/camunda-bpm-php-sdk)). 
 
+## Installation
+
+Use [Composer](https://getcomposer.org/) to add this library your project’s composer.json file:
+
+```
+$ composer require strehle-de/camunda-client
+```
+
 ## Quick test 
 
 Here’s how to do a quick test, starting from scratch with a new project (Docker and Camunda server required):
