@@ -46,14 +46,17 @@ class CamundaVariableBag extends ArrayIterator
 
     /**
      * @param array $json
+     * @return self
      */
-    public function fromJson(array $json): void
+    public function fromJson(array $json): self
     {
         // TODO: Reset (empty) values first?
 
         foreach ($json as $variableName => $value) {
             $this[$variableName] = (new CamundaVariable())->fromJson($value);
         }
+
+        return $this;
     }
 
 
