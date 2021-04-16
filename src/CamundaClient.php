@@ -24,6 +24,7 @@ class CamundaClient
     /**
      * CamundaClient constructor.
      * @param CamundaConfig $config
+     * @param LoggerInterface $logger
      */
     public function __construct(CamundaConfig $config, LoggerInterface $logger)
     {
