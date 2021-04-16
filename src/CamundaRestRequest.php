@@ -42,7 +42,7 @@ class CamundaRestRequest
     /**
      * set request url.
      *
-     * @param $requestUrl
+     * @param string $requestUrl
      * @return self
      */
     public function setRequestUrl(string $requestUrl): self

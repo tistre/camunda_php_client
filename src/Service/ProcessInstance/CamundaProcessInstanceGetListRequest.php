@@ -9,11 +9,13 @@ use StrehleDe\CamundaClient\CamundaRestRequest;
 
 class CamundaProcessInstanceGetListRequest extends CamundaRequest
 {
+    protected bool $active = false;
     protected string $businessKey;
     protected int $firstResult;
     protected int $maxResults;
     protected string $processDefinitionId;
     protected string $processDefinitionKey;
+    protected bool $withIncident;
 
 
     /**
@@ -22,6 +24,10 @@ class CamundaProcessInstanceGetListRequest extends CamundaRequest
     public function toRestRequest(): CamundaRestRequest
     {
         $query = [];
+
+        if ($this->isActive()) {
+            $query['active'] = 'true';
+        }
 
         if (($this->getBusinessKey() ?? '') !== '') {
             $query['businessKey'] = $this->getBusinessKey();
@@ -43,10 +49,34 @@ class CamundaProcessInstanceGetListRequest extends CamundaRequest
             $query['processDefinitionKey'] = $this->getProcessDefinitionKey();
         }
 
+        if ($this->isWithIncident()) {
+            $query['withIncident'] = 'true';
+        }
+
         return (new CamundaRestRequest($this->camundaClient))
             ->setRequestUrl('/process-instance')
             ->setRequestMethod('GET')
             ->setRequestOption(RequestOptions::QUERY, $query);
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+
+    /**
+     * @param bool $active
+     * @return self
+     */
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+        return $this;
     }
 
 
@@ -146,6 +176,26 @@ class CamundaProcessInstanceGetListRequest extends CamundaRequest
     public function setProcessDefinitionKey(string $processDefinitionKey): self
     {
         $this->processDefinitionKey = $processDefinitionKey;
+        return $this;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isWithIncident(): ?bool
+    {
+        return $this->withIncident ?? null;
+    }
+
+
+    /**
+     * @param bool $withIncident
+     * @return self
+     */
+    public function setWithIncident(bool $withIncident): self
+    {
+        $this->withIncident = $withIncident;
         return $this;
     }
 }

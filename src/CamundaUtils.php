@@ -76,7 +76,7 @@ class CamundaUtils
                 );
             }
 
-            if (strlen($variable->getValue()) === '') {
+            if (strlen($variable->getValue()) === 0) {
                 throw new CamundaInvalidInputException(
                     sprintf(
                         '%s: Required input variable "%s" is set to an empty value%s',

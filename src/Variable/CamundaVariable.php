@@ -36,6 +36,7 @@ class CamundaVariable
      * CamundaVariable constructor.
      * @param string $type
      * @param mixed $value
+     * @param array $valueInfo
      */
     public function __construct(string $type = '', $value = '', array $valueInfo = [])
     {

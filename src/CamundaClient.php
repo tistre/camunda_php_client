@@ -24,6 +24,7 @@ class CamundaClient
     /**
      * CamundaClient constructor.
      * @param CamundaConfig $config
+     * @param LoggerInterface $logger
      */
     public function __construct(CamundaConfig $config, LoggerInterface $logger)
     {
@@ -35,7 +36,7 @@ class CamundaClient
         $stack->push(
             Middleware::log(
                 $logger,
-                new MessageFormatter('Camunda request: {req_body} Camunda response: {res_body}'),
+                new MessageFormatter('Camunda {method} request to {uri}: {req_body} Camunda response: {res_body}'),
                 LogLevel::DEBUG
             )
         );

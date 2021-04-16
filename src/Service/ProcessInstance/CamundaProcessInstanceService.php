@@ -3,6 +3,8 @@
 namespace StrehleDe\CamundaClient\Service\ProcessInstance;
 
 use StrehleDe\CamundaClient\CamundaEmptyResponse;
+use StrehleDe\CamundaClient\CamundaProcessInstance;
+use StrehleDe\CamundaClient\CamundaResponse;
 use StrehleDe\CamundaClient\Service\CamundaService;
 
 
@@ -12,6 +14,19 @@ use StrehleDe\CamundaClient\Service\CamundaService;
  */
 class CamundaProcessInstanceService extends CamundaService
 {
+    /**
+     * @param CamundaProcessInstanceGetRequest $request
+     * @return CamundaProcessInstance
+     */
+    public function get(CamundaProcessInstanceGetRequest $request): CamundaProcessInstance
+    {
+        $request->validate();
+        $restResponse = $request->toRestRequest()->send();
+
+        return (new CamundaProcessInstance())->fromJson(CamundaResponse::restResponseToJson($restResponse));
+    }
+
+
     /**
      * @param CamundaProcessInstanceGetListRequest $request
      * @return CamundaProcessInstanceGetListResponse
