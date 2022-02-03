@@ -117,6 +117,9 @@ class CamundaRestRequest
     public function setJson(array $json): self
     {
         $this->setRequestOption(RequestOptions::JSON, $json);
+        if ($GLOBALS["headers"] !== null) {
+            $this->setRequestOption('headers',$GLOBALS["headers"]);
+        }
         return $this;
     }
 
