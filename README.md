@@ -46,7 +46,7 @@ Edit your copy.
 ```
 $ docker run -it --rm \
   --volume "$PWD":/usr/src/myapp --workdir /usr/src/myapp \
-  php:7.4-cli php MyExample.php
+  php:8.1-cli php MyExample.php
 ```
 
 ## Authors
