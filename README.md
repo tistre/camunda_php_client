@@ -32,7 +32,7 @@ Here’s how to do a quick test, starting from scratch with a new project (Docke
 $ docker run --rm --interactive --tty \
   --volume $PWD:/app \
   --volume ${COMPOSER_HOME:-$HOME/.composer}:/tmp \
-  composer require strehle-de/camunda-client:dev-master monolog/monolog
+  composer/composer require strehle-de/camunda-client:dev-master monolog/monolog
 ```
 
 ### Copy and edit the example script
