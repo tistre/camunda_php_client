@@ -10,6 +10,7 @@ use StrehleDe\CamundaClient\CamundaRestRequest;
 class CamundaProcessInstanceGetListRequest extends CamundaRequest
 {
     protected bool $active = false;
+    protected array $activityIdIn = [];
     protected string $businessKey;
     protected int $firstResult;
     protected int $maxResults;
@@ -27,6 +28,10 @@ class CamundaProcessInstanceGetListRequest extends CamundaRequest
 
         if ($this->isActive()) {
             $query['active'] = 'true';
+        }
+
+        if (!empty($this->activityIdIn)) {
+            $query['activityIdIn'] = implode(',', $this->activityIdIn);
         }
 
         if (($this->getBusinessKey() ?? '') !== '') {
@@ -76,6 +81,24 @@ class CamundaProcessInstanceGetListRequest extends CamundaRequest
     public function setActive(bool $active): self
     {
         $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getActivityIdIn(): array
+    {
+        return $this->activityIdIn;
+    }
+
+    /**
+     * @param array $activityIdIn
+     * @return self
+     */
+    public function setActivityIdIn(array $activityIdIn): self
+    {
+        $this->activityIdIn = $activityIdIn;
         return $this;
     }
 

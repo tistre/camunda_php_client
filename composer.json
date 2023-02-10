@@ -27,5 +27,8 @@
     "psr-4": {
       "StrehleDe\\CamundaClient\\": "src/"
     }
+  },
+  "require-dev": {
+    "monolog/monolog": "^3.3"
   }
 }
