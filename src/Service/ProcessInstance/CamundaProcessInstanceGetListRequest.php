@@ -7,6 +7,9 @@ use StrehleDe\CamundaClient\CamundaRequest;
 use StrehleDe\CamundaClient\CamundaRestRequest;
 
 
+/**
+ * @see https://docs.camunda.org/rest/camunda-bpm-platform/7.19/#tag/Process-Instance/operation/getProcessInstances
+ */
 class CamundaProcessInstanceGetListRequest extends CamundaRequest
 {
     protected bool $active = false;

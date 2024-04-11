@@ -6,6 +6,9 @@ use StrehleDe\CamundaClient\CamundaRequest;
 use StrehleDe\CamundaClient\CamundaRestRequest;
 
 
+/**
+ * @see https://docs.camunda.org/rest/camunda-bpm-platform/7.19/#tag/Historic-Process-Instance/operation/getHistoricProcessInstance
+ */
 class CamundaProcessInstanceHistoryGetRequest extends CamundaRequest
 {
     protected string $id;
